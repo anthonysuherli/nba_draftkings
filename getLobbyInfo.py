@@ -66,23 +66,22 @@ if __name__ == "__main__":
     names = [x.upper() for x in names]
     date = dt.datetime.now() + dt.timedelta(1)
 
-
-    for name in names:
-        fpath = f'data/{name}'
-        if name not in os.listdir('data'):
-            os.mkdir(fpath)
-
     contests = get_contests(names, date)
 
     print(f'contests: {contests}')
     print(f"current time (ET): {dt.datetime.now().strftime('%m-%d-%y %H:%M')}")
 
     for contest_name in contests.keys():
-        print(f'processing for {contest_name}')
+        print(f'\nprocessing for {contest_name}')
+
+        if contest_name.upper() not in os.listdir('data'):
+            os.mkdir(f'data/{contest_name}')
+            print(f'created directory for {contest_name}')
 
         player_dict = get_players(contests[contest_name])
         df_players = pd.DataFrame.from_dict(player_dict, orient='index').reset_index().iloc[:, 1:]
+
         data_path = f"data/{contest_name}/{date.strftime('%Y-%m-%d')}.csv"
         df_players.to_csv(data_path, index=False)
 
-        print(f'roster saved to: {data_path}')
+        print(f'roster saved to: {data_path}\n')
