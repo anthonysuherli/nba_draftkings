@@ -64,7 +64,7 @@ if __name__ == "__main__":
         names = f.read().split('\n')
 
     names = [x.upper() for x in names]
-    date = dt.datetime.now() + dt.timedelta(1)
+    date = dt.datetime.now()
 
     contests = get_contests(names, date)
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     for contest_name in contests.keys():
         print(f'\nprocessing for {contest_name}')
 
-        if contest_name.upper() not in os.listdir('data'):
+        if contest_name.upper() not in [x.upper() for x in os.listdir('data')]:
             os.mkdir(f'data/{contest_name}')
             print(f'created directory for {contest_name}')
 
