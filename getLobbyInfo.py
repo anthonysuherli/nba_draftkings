@@ -14,8 +14,6 @@ def get_contests(names, date=dt.datetime.now()):
     names = [x.lower() for x in names]
     cinfo = {}
     for idx, contest in enumerate(contests):
-        # contest_start =
-        # contest_start.replace(tzinfo = et)
         if contest.name.lower() in names and contest.starts_at.replace(tzinfo=et) >= date.replace(tzinfo=et):
             cinfo[contest.name] = {
                 'start_time': contest.starts_at,
@@ -51,7 +49,7 @@ def get_players(contest):
 def get_draft(contest):
     draft_id = contest['draft_id']
 
-    url = f'https://www.draftkings.com/lineup/getavailableplayerscsv?draftGroupId={draft_id}'
+    url = f'https://www.draftkings.com/lineup/getavailableplayerscsv?contestTypeId=70&draftGroupId={draft_id}'
 
     resp = requests.get(url)
     resp = resp.content.decode("utf-8")
