@@ -50,12 +50,11 @@ def get_players(contest):
 
 def get_draft(contest):
     draft_id = contest['draft_id']
-    contest_id =
 
-    'https://www.draftkings.com/lineup/getavailableplayerscsv?contestTypeId=70&draftGroupId=75319'
+    url = f'https://www.draftkings.com/lineup/getavailableplayerscsv?draftGroupId={draft_id}'
 
     resp = requests.get(url)
-    resp = ',,,,,,,,,'.join(resp.text.split(',,,,,,,,,')[6:])
+    resp = resp.content.decode("utf-8")
     return pd.read_csv(io.StringIO(resp), sep=",").reset_index().loc[:, 'Position':]
 
 
