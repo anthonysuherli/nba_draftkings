@@ -50,8 +50,9 @@ def get_players(contest):
 
 def get_draft(contest):
     draft_id = contest['draft_id']
+    contest_id =
 
-    url = f'https://www.draftkings.com/bulklineup/getdraftablecsv?draftGroupid={draft_id}'
+    'https://www.draftkings.com/lineup/getavailableplayerscsv?contestTypeId=70&draftGroupId=75319'
 
     resp = requests.get(url)
     resp = ',,,,,,,,,'.join(resp.text.split(',,,,,,,,,')[6:])
